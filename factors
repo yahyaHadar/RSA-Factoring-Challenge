@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+
+import sys
+
+
+def factorize(num):
+
+    for i in range(2, int(num**0.5)+1):
+        if num % i == 0:
+            return [i, num//i]
+    return None
+
+
+if len(sys.argv) != 2:
+    print("Usage: factors <file>")
+    exit()
+
+
+input_file = sys.argv[1]
+try:
+    with open(input_file, 'r') as f:
+        lines = f.readlines()
+except FileNotFoundError:
+    print("File not found")
+    exit()
+except Exception as e:
+    print("An error occurred:", e)
+    exit()
+for line in lines:
+    num = int(line.strip())
+    factors = factorize(num)
+    if factors:
+        print(f"{num}={factors[0]}*{factors[1]}")
